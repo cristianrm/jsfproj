@@ -1,0 +1,146 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+
+<h:head>
+	<title>Hello JSF!</title>
+</h:head>
+
+<h:body>
+	<!--    importar enum -->
+	<p:importEnum type="br.com.estudo.jsf.model.enums.Turno" var="Turno"
+		allSuffix="ALL_ENUM_VALUES" />
+	<h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota3}" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.nota1 == estudanteRegistrarBean.estudante.nota2 and estudanteRegistrarBean.estudante.nome.equals('Cristian')}" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.nota1 le estudanteRegistrarBean.estudante.nota3}" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.nota1 ge estudanteRegistrarBean.estudante.nota3}" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.nota1 eq 0 ? 'ZERO': 'NÃO ZERO'}" />
+	<br></br>
+	<!--    <h:outputLabel value ="#{estudanteRegistrarBean.estudante.nota1 =40}"/>  -->
+	<h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}" />
+	<br></br>
+
+	<!--    ENUM -->
+	<h:outputLabel value="ENUM" />
+	<br></br>
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.estudante.turno eq Turno.VESPERTINO }" />
+	<br></br>
+	<!-- teste comentario-->
+
+	<!--    ARRAY ui:repeat-->
+	<br></br>
+	<h:outputLabel value="**ARRAY**"></h:outputLabel>
+	<br></br>
+	<h:outputLabel value="#{estudanteRegistrarBean.nomeArray[0] }" />
+	<br></br>
+
+	<ui:repeat value="#{estudanteRegistrarBean.nomeArray}" var="nome">
+		<h:outputLabel value="#{nome}" />
+		<br></br>
+	</ui:repeat>
+
+	<br></br>
+	<br></br>
+	<!--    LIST ui:repeat-->
+	<h:outputLabel value="**LIST**"></h:outputLabel>
+	<br></br>
+
+	<ui:repeat value="#{estudanteRegistrarBean.nomeArray2}" var="nome2">
+		<h:outputLabel value="#{nome2}" />
+		<br></br>
+	</ui:repeat>
+
+
+	<br></br>
+	<br></br>
+	<!--    SET ui:repeat-->
+	<h:outputLabel value="**SET**"></h:outputLabel>
+	<br></br>
+
+	<ui:repeat value="#{estudanteRegistrarBean.nomeSet.toArray()}"
+		var="nome3">
+		<h:outputLabel value="#{nome3}" />
+		<br></br>
+	</ui:repeat>
+
+	<br></br>
+	<br></br>
+	<!--    MAP ui:repeat-->
+
+	<h:outputLabel value="**MAP**"></h:outputLabel>
+	<br></br>
+
+	<h:outputLabel
+		value="#{estudanteRegistrarBean.nomeMap.get('Cristian')}" />
+	<br></br>
+	<h:outputLabel value="#{estudanteRegistrarBean.nomeMap}" />
+	<br></br>
+
+	<ui:repeat value="#{estudanteRegistrarBean.nomeMap.entrySet()}"
+		var="entry">
+		<h:outputLabel value="#{entry.key} - #{entry.value}" />
+		<br></br>
+	</ui:repeat>
+	<br></br>
+	<br></br>
+	<h:outputLabel value="**Chamada Método**"></h:outputLabel>
+	#{estudanteRegistrarBean.executar('Teste param')}
+	#{estudanteRegistrarBean.executar(estudanteRegistrarBean.estudante.nome)}
+
+	<!--    <p:panel header="Teste" style="width:50%"> -->
+	<!--         <p:button value="Teste"></p:button> -->
+	<!--    </p:panel> -->
+	<h:form>
+	<h:commandButton action="#{estudanteRegistrarBean.irParaIndex()}" value="Ir para proxima pagina" />
+	
+<!-- 	passando valor via ES para funções JS -->
+	<h:commandButton  onclick="testeJavaScript('teste')" value="Teste JavaScript" />
+	<h:commandButton  onclick="testeJavaScript('#{estudanteRegistrarBean.estudante.nome}')" value="Teste JavaScript2" />
+	
+	
+	</h:form>
+	
+		<br></br>
+	<!--    Imprimindo CSS com EL-->
+	<h:outputLabel value="Imprimindo CSS com EL"></h:outputLabel>
+	<br></br>
+
+	<ui:repeat value="#{estudanteRegistrarBean.nomeArray2}" var="nome2" varStatus="status">
+	   
+		<h:outputLabel value="#{nome2}" style="color:  #{status.index mod 2 ==0 ? 'red':'green'} "/><br></br>
+		
+	</ui:repeat>
+	
+	
+	
+</h:body>
+	<script type="text/javascript">
+		function testeJavaScript(teste){
+			alert(teste);
+		}
+	</script>
+
+
+
+
+</html>
